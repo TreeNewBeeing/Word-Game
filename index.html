@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="todoApp">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+  <script src="todo.js"></script>
+  <link rel="stylesheet" href="todo.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/Users/lalala/DevLib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+  <div ng-controller="blocksController as blocks" >
+
+     <!-- title -->
+    <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+        style="text-align:center; height:60px;">
+        How Many Years Have You Been SINGLE
+    </h1>
+
+
+    <!-- char blocks -->
+    <ul class="b">
+      <li class="col-xs-4 col-sm-3 col-md-2 col-lg-2" 
+          ng-repeat="block in blocks.blocksb"
+          ng-click="blocks.addChar(block)">
+        <div class="a block-{{block.done}}">
+          {{block.text}}
+        </div>
+      </li>
+    </ul>
+    
+    <br>
+
+    <!-- start button -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 "
+         style="height:120px;text-align=center">
+      <button class="playButton"
+              ng-click="blocks.play()"> start game
+      </button>
+    </div>
+
+    <!-- show the gaming word -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+         style="text-align:center">
+      please click the word: 
+  
+      <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+          style="text-align:center;display:block;
+                 height:50px;">
+        {{blocks.stdtext}}
+      </h1>
+
+    </div>
+
+    <!-- finish -->
+    <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+        style="text-align:center;display:{{blocks.finish}};
+               height:40px;margin-top:20px;margin-bottom:100px">
+      Finished!
+    </h1>
+
+    <!-- clock -->
+    <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+        style="text-align:center;display:block">
+      {{blocks.stringTime}}
+    </h1>
+
+  </div>
+</body>
+</html>
