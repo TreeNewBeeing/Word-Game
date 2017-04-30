@@ -1,13 +1,12 @@
+var app = angular.module('todoApp',[]);
 
-
-angular.module('todoApp',[]).controller('blocksController',function($interval){
+app.controller('blocksController',function($scope,$interval){
 	
 	// declare variables
-	var blocks  = this;
-	this.finish = 'none';
-	this.wordLength = 14;
-	this.currentTime = 0;
-	this.blocksb = [
+	$scope.finish = 'none';
+	$scope.wordLength = 14;
+	$scope.currentTime = 0;
+	$scope.blocksb = [
 	{text:'a', done:false},
 	{text:'n', done:false},
 	{text:'g', done:false},
@@ -26,58 +25,69 @@ angular.module('todoApp',[]).controller('blocksController',function($interval){
 	];
 
 	// bind with every character key
-	this.addChar = function(block){
+	$scope.addChar = function(block){
 		block.done=!block.done;
 		var a = true;
-		angular.forEach(blocks.blocksb, function(block1){
-			if(blocks.stdtext){
+		angular.forEach($scope.blocksb, function(block1){
+			if($scope.stdtext){
 				if(!block1.done){
-					if(blocks.stdtext.indexOf(block1.text)>=0){
+					if($scope.stdtext.indexOf(block1.text)>=0){
 						a = false;
 					}
 				}else{
-					if(blocks.stdtext.indexOf(block1.text)<0){
+					if($scope.stdtext.indexOf(block1.text)<0){
 						a = false;
 					}
 				}
 			}
 		});
 		if(a){
-			blocks.finish = 'block';
-			$interval.cancel(blocks.timer);
+			$scope.finish = 'block';
+			$interval.cancel($scope.timer);
 
 		}else{
-			blocks.finish = 'none';
+			$scope.finish = 'none';
 		}
 
 	};
 
 
+
 	// bind with start game button
-	this.play = function(){
+	$scope.easyPlay = function(){
+		$scope.easy = true;
+		$scope.play();
+	}
+
+	$scope.hardPlay = function(){
+		$scope.easy = false;
+		$scope.play();
+	}
+
+	$scope.play = function(){
 		
 		// reset
-		blocks.currentTime = 0;
-		blocks.finish = 'none';
-		blocks.stdtext = '';
-		angular.forEach(this.blocksb, function(block){
+		$scope.currentTime = 0;
+		$scope.finish = 'none';
+		$scope.stdtext = '';
+		angular.forEach($scope.blocksb, function(block){
 			block.done = false;
 		});
 
 		// randomize the gaming word
-		for(var i=0;i<blocks.wordLength;i++){
-			var idx = Math.ceil(Math.random()*(blocks.blocksb.length-1));
-			blocks.stdtext+=blocks.blocksb[idx].text;
+		for(var i=0;i<$scope.wordLength;i++){
+			var idx = Math.ceil(Math.random()*($scope.blocksb.length-1));
+			$scope.stdtext+=$scope.blocksb[idx].text;
 		}
 
 		// clear timer
-		$interval.cancel(blocks.timer);
+		$interval.cancel($scope.timer);
 
 		// set timer
-		blocks.timer = $interval(function(){
-			blocks.currentTime+=10;
-			var time = new Date(blocks.currentTime);
-			blocks.stringTime = (time.getMinutes()<10?'0'+time.getMinutes() :  time.getMinutes())
+		$scope.timer = $interval(function(){
+			$scope.currentTime+=10;
+			var time = new Date($scope.currentTime);
+			$scope.stringTime = (time.getMinutes()<10?'0'+time.getMinutes() :  time.getMinutes())
 						 		+':'+
 						 		(time.getSeconds()<10?'0'+time.getSeconds() : time.getSeconds())
 						 		+':'+
@@ -87,9 +97,31 @@ angular.module('todoApp',[]).controller('blocksController',function($interval){
 		},1);
 		
 	};
-
-	
-
-
-
 });
+
+app.filter('easyMode',function(){
+	return function(text){
+		if(text){
+			var unique = '';
+
+			for(var i=0; i<text.length; i++){
+
+				var a = false;
+				for(var j=0; j<unique.length; j++){
+					if(text[i]==unique[j]){
+						a = true;
+						break;
+					}
+				}
+
+				if(!a){
+					unique+=text[i];
+				}
+			}
+		}
+		
+		return unique;
+	}
+});
+
+

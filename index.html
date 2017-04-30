@@ -11,7 +11,7 @@
 <body>
 
 
-  <div ng-controller="blocksController as blocks" >
+  <div ng-controller="blocksController" >
 
      <!-- title -->
     <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -23,8 +23,8 @@
     <!-- char blocks -->
     <ul class="b">
       <li class="col-xs-4 col-sm-3 col-md-2 col-lg-2" 
-          ng-repeat="block in blocks.blocksb"
-          ng-click="blocks.addChar(block)">
+          ng-repeat="block in blocksb"
+          ng-click="addChar(block)">
         <div class="a block-{{block.done}}">
           {{block.text}}
         </div>
@@ -34,29 +34,40 @@
     <br>
 
     <!-- start button -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 "
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 "
          style="height:120px;text-align=center">
       <button class="playButton"
-              ng-click="blocks.play()"> start game
+              ng-click="hardPlay()"> start game (HARD)
       </button>
+
+
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 "
+         style="height:120px;text-align=center">
+      <button class="playButton"
+              ng-click="easyPlay()"> start game (EASY)
+      </button>
+     
+
     </div>
 
     <!-- show the gaming word -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
          style="text-align:center">
-      please click the word: 
+      please click every character in the word: 
   
       <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
           style="text-align:center;display:block;
                  height:50px;">
-        {{blocks.stdtext}}
+        {{easy? (stdtext | easyMode) : stdtext  }}
       </h1>
 
     </div>
 
     <!-- finish -->
     <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-        style="text-align:center;display:{{blocks.finish}};
+        style="text-align:center;display:{{finish}};
                height:40px;margin-top:20px;margin-bottom:100px">
       Finished!
     </h1>
@@ -64,7 +75,7 @@
     <!-- clock -->
     <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
         style="text-align:center;display:block">
-      {{blocks.stringTime}}
+      {{stringTime}}
     </h1>
 
   </div>

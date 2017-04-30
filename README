@@ -1,4 +1,4 @@
-Little web game based on AngularJS and Bootcamp.
+Little web game based on AngularJS and Bootstrap.
 
 How to play
 ---------------
@@ -6,6 +6,12 @@ How to play
 Press Start Game button and then the timer will begin to count.
 Once you press all buttons whose letter is in the given word, 
 the timer will be paused and output "Finished!"
+
+There are two types of game. 
+Easy Mode will generate a word with every character unique 
+and not repeated.
+Hard Mode will generate a word with fixed length but same 
+character may appear twice or more in the word.
 
 Below the "Finished!", you can see the absolute time that you took
 to solve the puzzle.
