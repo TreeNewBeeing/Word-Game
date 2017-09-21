@@ -86,15 +86,16 @@ app.controller('blocksController',function($scope,$interval){
 		// set timer
 		$scope.timer = $interval(function(){
 			$scope.currentTime+=10;
-			var time = new Date($scope.currentTime);
-			$scope.stringTime = (time.getMinutes()<10?'0'+time.getMinutes() :  time.getMinutes())
-						 		+':'+
-						 		(time.getSeconds()<10?'0'+time.getSeconds() : time.getSeconds())
-						 		+':'+
-						 		(time.getMilliseconds()<100?'0'+ 
-						 		(time.getMilliseconds()<10?'0'+time.getMilliseconds(): time.getMilliseconds())
-						 		: time.getMilliseconds());
-		},1);
+			var minute = Math.floor($scope.currentTime/60/1000);
+			var second = Math.floor($scope.currentTime%(60*1000)/1000);
+			var millisecond = $scope.currentTime%(1000);
+			$scope.stringTime = 	(minute<10?'0'+minute:minute)
+						+':'+
+						(second<10?'0'+second:second)
+						+':'+
+						(millisecond<100?'0'+ 
+						 		(millisecond<10?'0'+millisecond:millisecond):millisecond);
+		},10);
 		
 	};
 });
